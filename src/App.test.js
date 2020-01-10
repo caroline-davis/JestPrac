@@ -1,6 +1,7 @@
 import React from 'react';
 import App from './App';
 import { render } from '@testing-library/react';
+import renderer from 'react-test-renderer';
 // enzyme can do a shallow render -
 // a shallow render is a simulated render of a component tree that doesnt require a dom
 // it renders only 1 level of components deep and enables the inspection of the components contents
@@ -33,6 +34,14 @@ describe('App component', () => {
     const text = wrapper.find('p').text();
     expect(text).toEqual('Count: -1');
   });
+
+  // snapshot takes a snap of the current info, if you change something it tells you
+  // if you changed something on purpose in app.js when the test fails then type in ***u*** into the terminal to update the snapshot
+  // it should then change to pass
+  it('matches the snapshot', () => {
+    const tree  = renderer.create(<App />).toJSON();
+    expect(tree).toMatchSnapshot();
+  })
 });
 
 
