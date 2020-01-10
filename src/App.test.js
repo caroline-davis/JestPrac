@@ -26,6 +26,13 @@ describe('App component', () => {
     // after the simulated click of the button the text should now if passed - should match the expected ***toEqual('Count: 1')***
     expect(text).toEqual('Count: 1');
   });
+  it('decrements the count by 1 when the decrement button is clicked', () => {
+    const wrapper = shallow(<App />);
+    const decrementBtn = wrapper.find('button.decrement');
+    decrementBtn.simulate('click');
+    const text = wrapper.find('p').text();
+    expect(text).toEqual('Count: -1');
+  });
 });
 
 
